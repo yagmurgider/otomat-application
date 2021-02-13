@@ -17,7 +17,6 @@ public abstract class AbstractEntity implements Serializable {
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date createdDate;
 
-    private Boolean status;
 }

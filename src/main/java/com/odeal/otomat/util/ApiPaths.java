@@ -11,4 +11,12 @@ public final class ApiPaths {
     public static final class UserCtrl {
         public static final String CTRL = BASE_PATH + "users";
     }
+
+    public static final class OrderInfoCtrl {
+        public static final String CTRL = BASE_PATH + "order";
+    }
+
+    public static final class ProductCtrl {
+        public static final String CTRL = BASE_PATH + "product";
+    }
 }
