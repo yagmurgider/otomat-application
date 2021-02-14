@@ -2,6 +2,7 @@ package com.odeal.otomat.dto;
 
 import com.odeal.otomat.abstacts.AbstractGenericType;
 import com.odeal.otomat.enums.ProductType;
+import com.odeal.otomat.enums.ProductTypeDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,16 @@ import javax.persistence.Enumerated;
 public class ProductDTO extends AbstractGenericType {
 
     private Long id;
+
     private String name;
+
+    private Long slotNumber;
+
+    private Double amount;
+
     @Enumerated(EnumType.STRING)
     private ProductType productType;
-    private Double amount;
+
+    @Enumerated(EnumType.STRING)
+    private ProductTypeDetail productTypeDetail;
 }

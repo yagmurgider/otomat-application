@@ -1,5 +1,6 @@
 package com.odeal.otomat.controller;
 
+import com.odeal.otomat.dto.BillingInfo;
 import com.odeal.otomat.dto.OrderInfoDTO;
 import com.odeal.otomat.service.IOrderInfoService;
 import com.odeal.otomat.util.ApiPaths;
@@ -32,8 +33,8 @@ public class OrderInfoController {
 
 
     @PostMapping
-    public ResponseEntity<OrderInfoDTO> createProject(@RequestBody OrderInfoDTO orderInfo) {
-        return ResponseEntity.ok(orderInfoService.save(orderInfo));
+    public ResponseEntity<BillingInfo> createProject(@RequestBody OrderInfoDTO orderInfo) throws Exception {
+        return ResponseEntity.ok(orderInfoService.validateAndSaveOrderInfo(orderInfo));
     }
 
     @DeleteMapping("/{id}")

@@ -14,4 +14,6 @@ public interface IProductService {
 
     Boolean delete(Long issue);
 
+    ProductDTO findBySlotNumber(Long slotNumber);
+
 }

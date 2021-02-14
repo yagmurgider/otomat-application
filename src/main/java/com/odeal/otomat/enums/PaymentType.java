@@ -1,16 +1,15 @@
 package com.odeal.otomat.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public enum PaymentType {
-    CREDIT_CARD("TEMASSIZ","TEMASLI"),
-    CASH("BOZUK","KAĞIT");
+    CREDIT_CARD(new PaymentTypeDetail[]{PaymentTypeDetail.CONTACTLESS, PaymentTypeDetail.DIRECT}),
+    CASH(new PaymentTypeDetail[]{PaymentTypeDetail.CHANGE, PaymentTypeDetail.BANKNOTE});
 
-    private String value1;
-    private String value2;
-
-    PaymentType (String value1, String value2) {
-        this.value1 = value1;
-        this.value2 = value2;
-    }
+    private PaymentTypeDetail[] paymentTypeDetails;
 }
 
 

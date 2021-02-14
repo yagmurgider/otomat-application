@@ -60,4 +60,13 @@ public class ProductServiceImpl implements IProductService {
         return true;
     }
 
+    @Override
+    public ProductDTO findBySlotNumber(Long slotNumber) {
+        Product product = this.productRepository.findBySlotNumber(slotNumber);
+        if (product == null) {
+            return null;
+        }
+        return this.modelMapper.map(product, ProductDTO.class);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.odeal.otomat.service;
 
+import com.odeal.otomat.dto.BillingInfo;
 import com.odeal.otomat.dto.OrderInfoDTO;
 import com.odeal.otomat.util.TPage;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,7 @@ public interface IOrderInfoService {
 
     Boolean delete(Long issue);
 
+    BillingInfo validateAndSaveOrderInfo(OrderInfoDTO orderInfoDTO);
+
+    BillingInfo createBillingInfo(OrderInfoDTO orderInfoDTO);
 }
