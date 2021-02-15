@@ -5,6 +5,7 @@ import com.odeal.otomat.dto.OrderInfoDTO;
 import com.odeal.otomat.dto.ProductDTO;
 import com.odeal.otomat.entity.OrderInfo;
 import com.odeal.otomat.enums.PaymentType;
+import com.odeal.otomat.enums.PaymentTypeDetail;
 import com.odeal.otomat.enums.ProductTypeDetail;
 import com.odeal.otomat.repository.OrderInfoRepository;
 import com.odeal.otomat.service.IOrderInfoService;
@@ -47,7 +48,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         billingInfo.setAmount(orderInfoDTO.getProduct().getAmount());
         billingInfo.setTotalAmount(orderInfoDTO.getTotalAmount());
         billingInfo.setReceivedAmount(orderInfoDTO.getReceiveAmount());
-        billingInfo.setRemainingAmount(orderInfoDTO.getReceiveAmount());
+        billingInfo.setRemainingAmount(orderInfoDTO.getRemainingAmount());
         return billingInfo;
     }
 
@@ -68,17 +69,13 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
             throw new IllegalArgumentException("Adet seçiniz!");
         }
 
-        if (!productDTO.getProductTypeDetail().equals(ProductTypeDetail.HOT)
+        if (productDTO.getProductTypeDetail() != null && !productDTO.getProductTypeDetail().equals(ProductTypeDetail.HOT)
                 && orderInfoDTO.getSugarQuantity() > 0) {
-            throw new IllegalArgumentException("Yiyeceklerde ve soğuk içeceklerde şeker adedi seçilemez!");
+            throw new IllegalArgumentException("Sadece sıcak içeceklerde şeker adedi seçilebilir!");
         }
 
         if (orderInfoDTO.getPaymentType() == null) {
             throw new IllegalArgumentException("Ödeme şekli seçilmelidir!");
-        }
-
-        if (orderInfoDTO.getPaymentType().equals(PaymentType.CREDIT_CARD) && orderInfoDTO.getPaymentTypeDetail() == null) {
-            throw new IllegalArgumentException("Kredi kartı ile yapılacak ödemelerde temaslı veya temassız seçimi yapılmalıdır!");
         }
 
         double totalAmount = productDTO.getAmount() * orderInfoDTO.getQuantity();
@@ -90,6 +87,10 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
                 throw new IllegalArgumentException("Nakit yapılacak ödemelerde kağıt veya bozuk para seçimi yapılmalıdır!");
             }
 
+            if (!(orderInfoDTO.getPaymentTypeDetail().equals(PaymentTypeDetail.CHANGE) || orderInfoDTO.getPaymentTypeDetail().equals(PaymentTypeDetail.BANKNOTE))) {
+                throw new IllegalArgumentException("Nakit ödemelerde " + orderInfoDTO.getPaymentTypeDetail() + " seçilemez!");
+            }
+
             if (orderInfoDTO.getReceiveAmount() == null) {
                 throw new IllegalArgumentException("Lütfen para giriniz!");
             }
@@ -99,7 +100,13 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
             }
             orderInfoDTO.setReceiveAmount(orderInfoDTO.getReceiveAmount());
             orderInfoDTO.setRemainingAmount(orderInfoDTO.getReceiveAmount() - totalAmount);
+
         } else {
+
+            if (orderInfoDTO.getPaymentTypeDetail() == null) {
+                throw new IllegalArgumentException("Kredi kartı ile yapılacak ödemelerde temaslı veya temassız seçimi yapılmalıdır!");
+            }
+
             orderInfoDTO.setReceiveAmount(totalAmount);
             orderInfoDTO.setRemainingAmount(0D);
         }
