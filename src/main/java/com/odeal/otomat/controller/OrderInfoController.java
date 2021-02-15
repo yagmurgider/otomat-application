@@ -33,7 +33,7 @@ public class OrderInfoController {
 
 
     @PostMapping
-    public ResponseEntity<BillingInfo> createProject(@RequestBody OrderInfoDTO orderInfo) throws Exception {
+    public ResponseEntity<BillingInfo> createProject(@RequestBody OrderInfoDTO orderInfo) {
         return ResponseEntity.ok(orderInfoService.validateAndSaveOrderInfo(orderInfo));
     }
 

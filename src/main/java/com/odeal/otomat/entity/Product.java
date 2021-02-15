@@ -21,7 +21,7 @@ public class Product extends AbstractEntity {
 
     private String name;
 
-    private Long slotNumber;
+    private int slotNumber;
 
     private Double amount;
 

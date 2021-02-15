@@ -21,7 +21,7 @@ public class ProductDTO extends AbstractGenericType {
 
     private String name;
 
-    private Long slotNumber;
+    private int slotNumber;
 
     private Double amount;
 

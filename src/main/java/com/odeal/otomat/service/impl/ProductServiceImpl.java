@@ -55,13 +55,13 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Boolean delete(Long issueId) {
-        productRepository.deleteById(issueId);
+    public Boolean delete(Long productId) {
+        productRepository.deleteById(productId);
         return true;
     }
 
     @Override
-    public ProductDTO findBySlotNumber(Long slotNumber) {
+    public ProductDTO findBySlotNumber(int slotNumber) {
         Product product = this.productRepository.findBySlotNumber(slotNumber);
         if (product == null) {
             return null;

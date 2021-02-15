@@ -53,7 +53,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 
     private OrderInfoDTO validateOrderInfo (OrderInfoDTO orderInfoDTO) {
 
-        if(orderInfoDTO.getProduct() == null || orderInfoDTO.getProduct().getSlotNumber() == null) {
+        if(orderInfoDTO.getProduct() == null || orderInfoDTO.getProduct().getSlotNumber() == 0) {
             throw new IllegalArgumentException("Ürün seçimi yapınız!");
         }
 
@@ -95,7 +95,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
             }
 
             if (orderInfoDTO.getReceiveAmount() < totalAmount) {
-                throw new IllegalArgumentException("Girilen tutar toplam tutardan büyük olmalıdır!");
+                throw new IllegalArgumentException("Girilen tutar toplam tutardan küçük olamaz!");
             }
             orderInfoDTO.setReceiveAmount(orderInfoDTO.getReceiveAmount());
             orderInfoDTO.setRemainingAmount(orderInfoDTO.getReceiveAmount() - totalAmount);
